@@ -1,19 +1,14 @@
 import tesserocr
 from PIL import Image
 
-image = Image.open('code2.jpg')
+img = Image.open('code.jpg')
+print (img.format, img.size, img.mode)
+img = img.convert('L')
+table=[]
+print (img)
+print (img.format, img.size, img.mode)
+for i in range(0, img.size[0]):
+    for j in range(0, img.size[1]):
+        table.append(img.getpixel((i, j)))
+        print (img.getpixel((i, j)))
 
-image = image.convert('L')
-threshold = 127
-table = []
-for i in range(256):
-    if i < threshold:
-        table.append(0)
-    else:
-        table.append(1)
-
-image = image.point(table, '1')
-image.show()
-
-result = tesserocr.image_to_text(image)
-print(result)
